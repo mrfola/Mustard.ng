@@ -1,122 +1,93 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ChartFilterDropdown from "../../ui/molecules/ChartFilterDropdown/ChartFilterDropdown";
 import Chart from "../../ui/organisms/Chart/Chart";
 import styles from "./ChartTemplate.module.scss";
 
 const ChartTemplate = ({data, options}) => 
 {
-    const testData = 
-    [
-        {
-            dollarRate: "605",
-            date: "2022-06-03 21:09:34"
-        },
-        {
-            dollarRate: "600",
-            date: "2022-06-03 21:09:34"
-        },
-        {
-            dollarRate: "605",
-            date: "2022-06-11 21:09:34"
-        },
-        {
-            dollarRate: "615",
-            date: "2022-07-06 21:09:34"
-        },
-        {
-            dollarRate: "620",
-            date: "2022-07-20 21:09:34"
-        },
-        {
-            dollarRate: "643",
-            date: "2022-07-20 21:09:34"
-        },
-        {
-            dollarRate: "645",
-            date: "2022-07-22 21:09:34"
-        },
-        {
-            dollarRate: "650",
-            date: "2022-07-22 21:09:34"
-        },
-        {
-            dollarRate: "670",
-            date: "2022-07-22 21:09:34"
-        },
-        {
-            dollarRate: "670",
-            date: "2022-07-22 21:09:34"
-        },
-        {
-            dollarRate: "700",
-            date: "2022-07-22 21:09:34"
-        },
-        {
-            dollarRate: "700",
-            date: "2022-07-22 21:09:34"
-        },
-        {
-            dollarRate: "625",
-            date: "2022-07-22 21:09:34"
-        },
-        {
-            dollarRate: "655",
-            date: "2022-08-09 21:09:34"
-        },
-        {
-            dollarRate: "685",
-            date: "2022-08-09 21:09:34"
-        },
-        {
-            dollarRate: "700",
-            date: "2022-08-15 21:09:34"
-        },
-        {
-            dollarRate: "700",
-            date: "2022-08-15 21:09:34"
-        },
-        {
-            dollarRate: "700",
-            date: "2022-08-15 21:09:34"
-        },
-        {
-            dollarRate: "700",
-            date: "2022-09-06 21:09:34"
-        },
-        {
-            dollarRate: "700",
-            date: "2022-09-09 21:09:34"
-        },
-        {
-            dollarRate: "715",
-            date: "2022-09-20 21:09:34"
-        },
-        {
-            dollarRate: "725",
-            date: "2022-10-06 21:09:03"
-        }
-    ];
+    const [isLoading, setIsLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
+    const [formattedData, setFormattedData] = useState({ labels: [],  datasets: [] });
+    const [priceMonths, setPriceMonths] = useState([]);
+    const [filteredMonth, setFilteredMonth] = useState( new Date().toLocaleString("default", {month: "short"}));
 
-        const [formattedData, setFormattedData] = useState(
+    const getDollarPrices = async (url) => 
+    {
+        const res = await fetch(url, {method: "GET"});
+        
+        if(res.ok)
+        {
+            const data = await res.json();
+            const rawData = data.data;
+
+            const monthMap = {}
+
+            //Format data into a better format
+            rawData.forEach( (data) => 
             {
-                labels: testData.map(data => new Date(data.date).getDate()),
-                datasets: [
-                        {
-                            "label": "Dollar rate", 
-                            "data": testData.map(data => data.dollarRate)
-                        }
+                data[1] = new Date(data[1]).toString();
+                let curMonth = new Date(data[1]).toLocaleString('default', { month: 'short' });
+                monthMap[curMonth] = true;
+                // console.log(data[1].toString());
+            });
+
+            //Filter price data by month
+            const filteredData = rawData.filter((curData) => 
+            {
+                console.log(curData[1], filteredMonth);
+                return curData[1].includes(filteredMonth);
+            })
+
+            console.log(filteredData);
+
+            //Setting the data that displays on the map
+            setFormattedData(
+            {
+                labels: filteredData.map(data =>  new Date(data[1]).getDate()),
+                datasets: 
+                [
+                    {
+                        "label": "Dollar rate", 
+                        "data": filteredData.map(data => data[0])
+                    }
                 ]
-            }
-        );
+            });
+
+            //Setting the months that shows in the filter dropdown
+            setPriceMonths(Object.keys(monthMap));
+
+            setErrorMessage("");
+
+        }else 
+        {
+            setIsLoading(false);
+            setErrorMessage("Something went wrong. Please try again.");
+            console.log("Something went wrong. Could not fetch data.")
+        }
+    }
+
+    const handleOnFilterChange = (e) => 
+    {
+        e.preventDefault();
+        setFilteredMonth(e.target.value);
+    }
+
+    useEffect(() => 
+    {
+        getDollarPrices("https://mustard-ng.herokuapp.com/api/dollar-prices");
+
+    }, [filteredMonth]);
 
     return ( 
         <div className={styles.chartTemplate}>
             <div className={styles.titleAndChart}>
                 <h2>Dollar Rate Chart</h2>
-                <ChartFilterDropdown/>
+                <ChartFilterDropdown months={priceMonths} handleOnChange={(e) => handleOnFilterChange(e)} selected={filteredMonth}/>
             </div>
-            <Chart data={formattedData} />
+            {isLoading && "Loading..."}
+            {errorMessage && <p>{errorMessage}</p>}
+            {(!isLoading && !errorMessage) && <Chart data={formattedData} />}
         </div>
      );
 }
