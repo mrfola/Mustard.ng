@@ -1,0 +1,30 @@
+.titleHeadingContainer
+{
+    padding: 17px 6.25%;
+    display: flex;
+    justify-content: space-between;
+    background-color: #FFFFFF;
+
+    .titleHeading
+    {
+        display: flex;
+        flex-direction: column;
+        column-gap: 5px;
+
+        p
+        {
+            margin: 0px;
+            font-family: "Roboto";
+            color: #73737B;
+            font-size: 18px;
+            font-weight: 400;
+        }
+    }
+
+    .buttons
+    {
+        display: flex;
+        flex-wrap: nowrap;
+        column-gap: 10px;
+    }
+}

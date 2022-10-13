@@ -1,0 +1,29 @@
+@font-face 
+{
+    font-family: "Gilroy-Bold";
+    src: url("./../../../assets/fonts/Gilroy-Bold.ttf");
+    src: url("./../../../assets/fonts/Gilroy-Bold.ttf") format('truetype');
+}
+
+.chartTemplate
+{
+
+    padding: 25px 30px;
+    border: 0.3px solid #B2B2B2;
+    background: #F7FAFF;
+    border-radius: 10px;
+
+    .titleAndChart
+    {
+        display: flex;
+        justify-content: space-between;
+
+        h2
+        {
+            font-family: "Gilroy-Bold";
+            font-size: 24px;
+            color: #38BC7B;
+            line-height: 45px;
+        }
+    }
+}

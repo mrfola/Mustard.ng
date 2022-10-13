@@ -1,0 +1,13 @@
+.home 
+{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: #DFF8EB;
+
+    .content
+    {
+        padding: 45px 6.25%;
+        background-color: #FFFFFF;
+    }
+}

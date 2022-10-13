@@ -1,0 +1,33 @@
+@font-face 
+{
+    font-family: "Gilroy-Medium";
+    src: url("./../../../../assets/fonts/Gilroy-Medium.ttf");
+    src: url("./../../../../assets/fonts/Gilroy-Medium.ttf") format('truetype');
+}
+
+.chartFilterDropdown
+{
+    display: flex;
+    flex-wrap: nowrap;
+    column-gap: 10px;
+    align-items: center;
+
+    p
+    {
+        font-family: "Gilroy-Medium";
+        font-size: 18px;
+        line-height: 24px;
+        color: #1F1F1F;
+    }
+
+    select
+    {
+        font-family: "Gilroy-Medium";
+        font-size: 16px;
+        line-height: 24px;
+        color: #8F8F8F;
+        border-radius: 10px;
+        padding: 5px 7.5px;
+        cursor: pointer;
+    }
+}

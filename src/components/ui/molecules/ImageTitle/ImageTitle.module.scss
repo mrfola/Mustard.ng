@@ -1,0 +1,22 @@
+@font-face 
+{
+    font-family: "Gilroy-SemiBold";
+    src: url("./../../../../assets/fonts/Gilroy-SemiBold.ttf");
+    src: url('./../../../../assets/fonts/Gilroy-SemiBold.ttf') format('truetype');
+}
+  
+
+.imageTitle
+{
+    display: flex;
+    flex-wrap: nowrap;
+
+    h1
+    {
+        margin: 0;
+        font-family: 'Gilroy-SemiBold';
+        font-size: 28px;
+        text-transform: capitalize;
+        color: #101621;
+    }
+}

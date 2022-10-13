@@ -1,0 +1,22 @@
+.button
+{
+    font-weight: 500;
+    font-size: 12px;
+    padding: 17.5px 18.5px;
+    border-radius: 3px;
+    border: 2px solid #101621;
+    font-family: "Roboto";
+    cursor: pointer;
+}
+
+.buttonDark 
+{
+    background-color: #101621;
+    color: #FEFEFE;
+}
+
+.buttonLight
+{
+    background-color: #FEFEFE;
+    color: #101621;
+}
