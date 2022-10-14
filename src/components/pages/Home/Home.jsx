@@ -50,14 +50,14 @@ const Home = () =>
             count += 1;
         });
 
-        let avg_rate = (totalRate/count).toFixed(2);
+        let avg_rate = totalRate/count;
 
         const statistics = 
         {
             "todays_rate": todaysRate,
-            "avg_rate": avg_rate,
-            "highest_rate": highestRate,
-            "lowest_rate": lowestRate,
+            "avg_rate": avg_rate.toFixed(2),
+            "highest_rate": highestRate.toFixed(2),
+            "lowest_rate": lowestRate.toFixed(2),
         }
 
         setCardStatistics(statistics);
