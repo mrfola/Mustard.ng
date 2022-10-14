@@ -29,17 +29,14 @@ const ChartTemplate = ({data, options}) =>
                 data[1] = new Date(data[1]).toString();
                 let curMonth = new Date(data[1]).toLocaleString('default', { month: 'short' });
                 monthMap[curMonth] = true;
-                // console.log(data[1].toString());
             });
 
-            //Filter price data by month
+            //Filter data by month
             const filteredData = rawData.filter((curData) => 
             {
-                console.log(curData[1], filteredMonth);
                 return curData[1].includes(filteredMonth);
             })
 
-            console.log(filteredData);
 
             //Setting the data that displays on the map
             setFormattedData(
@@ -49,7 +46,9 @@ const ChartTemplate = ({data, options}) =>
                 [
                     {
                         "label": "Dollar rate", 
-                        "data": filteredData.map(data => data[0])
+                        "data": filteredData.map(data => data[0]),
+                        "backgroundColor": "#FFFFFF",
+                        "borderColor": "#38BC7B"
                     }
                 ]
             });
