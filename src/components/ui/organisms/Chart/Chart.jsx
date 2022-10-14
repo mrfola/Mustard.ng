@@ -12,6 +12,13 @@ const Chart = ({data, options}) =>
     return ( 
         <Line data={data} options = 
         {{
+            plugins: 
+            {
+                legend: 
+                {
+                  display: false
+                }
+            },
             scales: 
             {
                 y: 

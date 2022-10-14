@@ -4,4 +4,10 @@
     flex-wrap: nowrap;
     justify-content: space-between;
     margin-bottom: 5px;
+    gap: 24px;
+
+    > div
+    {
+        width: 25%;
+    }
 }

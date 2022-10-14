@@ -1,7 +1,8 @@
 import ImageTitle from "../../molecules/ImageTitle/ImageTitle";
 import styles from "./TitleHeading.module.scss";
+import ChartFilterDropdown from "../../molecules/ChartFilterDropdown/ChartFilterDropdown";
 
-const TitleHeading = () => 
+const TitleHeading = ({months, handleOnFilterChange, filteredMonth}) => 
 {
     return ( 
         <div className={styles.titleHeadingContainer}>
@@ -10,8 +11,8 @@ const TitleHeading = () =>
                 <p>Monitor the rate of dollar over a duration of time</p>
             </div>
             <div className={styles.buttons}>
-                {/* <Button buttonDark={true}>Use default data</Button>
-                <Button>Upload new data</Button> */}
+                <ChartFilterDropdown months={months} handleOnChange={(e) => handleOnFilterChange(e)} selected={filteredMonth}/>
+
             </div>
         </div>
      );
