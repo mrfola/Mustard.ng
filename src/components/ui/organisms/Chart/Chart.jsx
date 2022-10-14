@@ -23,6 +23,11 @@ const Chart = ({data, options}) =>
             {
                 y: 
                 {
+                    title: 
+                    {
+                        display: true,
+                        text: 'Dollar rate'
+                    },
                     ticks: 
                     {
                         // Include a dollar sign in the ticks
@@ -31,6 +36,17 @@ const Chart = ({data, options}) =>
                             return '$' + value;
                         }
                     }
+                },
+                x: 
+                {
+                    suggestedMin: 1,
+                    suggestedMax: 30,
+                    stacked: true,
+                    title: 
+                    {
+                        display: true,
+                        text: 'Day of the month'
+                    },
                 }
             },
             elements: 
